@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://u5j56ayx4nfm"]
+
+[ext_resource type="PackedScene" uid="uid://ceafmb22dlh5q" path="res://kart.tscn" id="1_ulc6r"]
+
+[node name="SceneRoot" type="Node3D"]
+
+[node name="Kart" parent="." instance=ExtResource("1_ulc6r")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 8.88178e-15, -8.74228e-08, -2.9398e-08, 0.941764, 0.336274, 8.23317e-08, 0.336274, -0.941764, 0.05199, 0.959071, -1.38217)
+fov = 68.0
