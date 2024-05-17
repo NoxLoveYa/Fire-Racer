@@ -23,6 +23,7 @@ metallic_specular = 1.0
 [node name="SceneRoot" type="Node3D"]
 
 [node name="Kart" type="CSGCombiner3D" parent="."]
+use_collision = true
 
 [node name="Frame" type="CSGBox3D" parent="Kart"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0450416, 0.118496, 0.0744638)
