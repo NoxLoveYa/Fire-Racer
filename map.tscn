@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://nppokluwj2ab"]
+
+[ext_resource type="MeshLibrary" path="res://MeshLibrary.tres" id="1_owjc7"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_owjc7")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65534, 65534, 8, 65535, 65534, 2, 0, 65534, 2, 65534, 65535, 1048578, 65534, 0, 1048578, 65534, 1, 1048578, 65534, 2, 1048583, 1, 2, 655367, 1, 65534, 1441799, 1, 65535, 655369, 1, 0, 655369, 0, 2, 1048588, 65535, 2, 655363, 65535, 1, 655360, 0, 1, 655360, 0, 0, 655360, 65535, 0, 655360, 65535, 65535, 655360, 0, 65535, 655360, 1, 1, 9)
+}
