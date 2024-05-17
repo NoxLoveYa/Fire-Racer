@@ -25,6 +25,7 @@ adjustment_saturation = 8.0
 [node name="SceneRoot" type="Node3D"]
 
 [node name="Map" parent="." instance=ExtResource("1_rbais")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_b4kol")
@@ -34,4 +35,4 @@ transform = Transform3D(1, 0, 0, 0, -0.676156, 0.736758, 0, -0.736758, -0.676156
 light_color = Color(1, 0.9825, 0.97, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_mx080")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55339, 0, -4.4578)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61447, 0.285142, -6.15933)
