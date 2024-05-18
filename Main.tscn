@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7u5qvhse8n3c"]
+[gd_scene load_steps=8 format=3 uid="uid://b7sfh84763lft"]
 
 [ext_resource type="PackedScene" uid="uid://nppokluwj2ab" path="res://Map.tscn" id="1_rbais"]
 [ext_resource type="Script" path="res://FireMode.gd" id="1_v47ww"]
 [ext_resource type="PackedScene" uid="uid://u5j56ayx4nfm" path="res://Player.tscn" id="2_mx080"]
-[ext_resource type="PackedScene" uid="uid://dn41owjrviabe" path="res://Fire.tscn" id="3_xi78q"]
+[ext_resource type="PackedScene" path="res://Fire.tscn" id="3_xi78q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fc1av"]
 sky_top_color = Color(0, 0.229167, 0.55, 1)
@@ -24,7 +24,7 @@ glow_enabled = true
 glow_bloom = 0.2
 adjustment_saturation = 8.0
 
-[node name="SceneRoot" type="Node3D"]
+[node name="SceneRoot2" type="Node3D"]
 script = ExtResource("1_v47ww")
 
 [node name="Map" parent="." instance=ExtResource("1_rbais")]
