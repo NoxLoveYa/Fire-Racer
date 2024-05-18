@@ -21,6 +21,7 @@ metallic = 1.0
 metallic_specular = 1.0
 
 [node name="SceneRoot" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, 0, 0)
 
 [node name="Kart" type="CSGCombiner3D" parent="."]
 

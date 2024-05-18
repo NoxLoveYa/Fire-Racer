@@ -2,11 +2,11 @@ extends CharacterBody3D
 
 @export var gravity = -20.0
 @export var engine_power = 10.0
-@export var braking = -1.5
+@export var braking = -17.5
+@export var reverse_power = -6.5
 @export var friction = -10.0
 @export var drag = -20.0
 @export var steering_limit = 2.0
-@export var max_speed_reverse = 7.0
 
 # Car state properties
 var acceleration = Vector3.ZERO  # current acceleration
@@ -33,7 +33,10 @@ func get_input():
 	if Input.is_action_pressed("Accelerate"):
 		acceleration += transform.basis.z * engine_power
 	if Input.is_action_pressed("Brake"):
-		acceleration += transform.basis.z * braking
+		if velocity.dot(transform.basis.z) > 0.0:
+			acceleration += transform.basis.z * braking
+		else:
+			acceleration += transform.basis.z * reverse_power
 
 func steer_car():
 	transform.basis = transform.basis.rotated(steer_axis, steer_angle)
@@ -43,6 +46,7 @@ func _physics_process(delta):
 		get_input()
 		steer_car()
 		apply_friction(delta)
-	velocity.y += gravity * delta
+	else:
+		velocity.y += gravity * delta
 	velocity += acceleration * delta
 	move_and_slide()
