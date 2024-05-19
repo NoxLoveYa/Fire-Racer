@@ -67,4 +67,6 @@ func _physics_process(delta):
 func _on_area_3d_body_entered(body):
 	if not body.is_in_group("players"):
 		return
+	if body.name == name:
+		return
 	$"../".fire_player_name = name

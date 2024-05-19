@@ -1,11 +1,11 @@
 extends Node3D
 
 ## Time before round starts
-@export var freeze_delay: float = 10.0
+@export var freeze_delay: float = 4.5
+## Immunity time (player doesn't gain points)
+@export var immunity_time: float = 7.5
 ## Round duration in mins
 @export var game_duration: float = 1.5
-## Immunity time (player doesn't gain points)
-@export var immunity_time: float = 4.5
 @export var state: String = "freeze"
 @export var next_game_time: float = 3.0
 
@@ -54,7 +54,11 @@ func _process(_delta):
 	if (not fire_player):
 		fire_player = $"1"
 	if (fire_player.name != fire_player_name):
-		rpc("_change_fire_player")
+		if $TouchCooldown.is_stopped() and state == "game":
+			rpc("_change_fire_player")
+			$TouchCooldown.start()
+		else:
+			fire_player_name = fire_player.name
 	if fire_player:
 		fire_instance.position = fire_player.position + Vector3(0, 1, 0)
 	if timer_hud.visible:

@@ -12,7 +12,7 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vb6lh"]
-size = Vector3(1.25024, 1, 1.42767)
+size = Vector3(1.34381, 1, 1.52789)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eq4ky"]
 size = Vector3(1.01422, 0.7, 1.35671)
@@ -33,7 +33,7 @@ replication_config = SubResource("SceneReplicationConfig_7c5gk")
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="Area" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000792265, 0.202976, 0.0341702)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0213306, 0.202976, 0.0842762)
 shape = SubResource("BoxShape3D_vb6lh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

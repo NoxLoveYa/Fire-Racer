@@ -141,6 +141,9 @@ text = "[center] Winner is: (player_id)
 [node name="PointsCooldown" type="Timer" parent="."]
 wait_time = 0.25
 
+[node name="TouchCooldown" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
