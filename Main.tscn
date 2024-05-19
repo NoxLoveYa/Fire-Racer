@@ -24,8 +24,9 @@ glow_enabled = true
 glow_bloom = 0.2
 adjustment_saturation = 8.0
 
-[node name="SceneRoot2" type="Node3D"]
+[node name="SceneRoot" type="Node3D"]
 script = ExtResource("1_v47ww")
+player_scene = ExtResource("2_mx080")
 
 [node name="Map" parent="." instance=ExtResource("1_rbais")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -37,8 +38,33 @@ environment = SubResource("Environment_b4kol")
 transform = Transform3D(1, 0, 0, 0, -0.676156, 0.736758, 0, -0.736758, -0.676156, 0, 6.71121, -11.7377)
 light_color = Color(1, 0.9825, 0.97, 1)
 
-[node name="Player1" parent="." instance=ExtResource("2_mx080")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61447, 0.285142, -6.15933)
-
 [node name="Fire" parent="." instance=ExtResource("3_xi78q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61447, 1.21561, -6.32009)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+offset_left = 332.0
+offset_top = 376.0
+offset_right = 842.0
+offset_bottom = 471.0
+text = "Join
+"
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+offset_left = 333.0
+offset_top = 154.0
+offset_right = 833.0
+offset_bottom = 331.0
+text = "Host
+"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player.tscn")
+spawn_path = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 6.15009, -17.997)
+
+[connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]

@@ -13,8 +13,17 @@ var acceleration = Vector3.ZERO  # current acceleration
 var steer_angle = 0.0  # current wheel angle
 var steer_axis = Vector3(0, 1, 0)
 
+@onready var cam = $Camera3D
+
+# Multiplayer
+func _enter_tree():
+	print("name: ", name)
+	set_multiplayer_authority(name.to_int())
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	cam.current = is_multiplayer_authority()
+	print(name)
 	pass # Replace with function body.
 
 func apply_friction(delta):
@@ -26,6 +35,9 @@ func apply_friction(delta):
 	acceleration += drag_force + friction_force
 
 func get_input():
+	if Input.is_action_just_pressed("Quit"):
+		$"../".exit_game(name.to_int())
+		get_tree().quit()
 	var turn = Input.get_action_strength("Turn Left")
 	turn -= Input.get_action_strength("Turn Right")
 	steer_angle = turn * deg_to_rad(steering_limit)
@@ -42,6 +54,8 @@ func steer_car():
 	transform.basis = transform.basis.rotated(steer_axis, steer_angle)
 
 func _physics_process(delta):
+	if is_multiplayer_authority() != true:
+		pass
 	if is_on_floor():
 		get_input()
 		steer_car()
