@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhpiqp820byp5"]
+[gd_scene load_steps=5 format=3 uid="uid://nppokluwj2ab"]
 
 [ext_resource type="Texture2D" uid="uid://b8lt5u5rkhfqi" path="res://assets/prototype_textures/Dark/texture_01.png" id="1_pd378"]
 [ext_resource type="Texture2D" uid="uid://bmhjjkl7oin10" path="res://assets/prototype_textures/Dark/texture_02.png" id="2_1c6i4"]
-[ext_resource type="Texture2D" uid="uid://cia57paawsdrs" path="res://assets/prototype_textures/Orange/texture_09.png" id="3_14rwb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftau0"]
 albedo_texture = ExtResource("1_pd378")
@@ -14,18 +13,13 @@ albedo_texture = ExtResource("2_1c6i4")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u2kh0"]
-albedo_texture = ExtResource("3_14rwb")
-uv1_triplanar = true
-uv1_world_triplanar = true
-
 [node name="SceneRoot" type="Node3D"]
 
 [node name="Map" type="CSGCombiner3D" parent="."]
 use_collision = true
 
 [node name="Ground" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1.2, 0, 0, 0, 1, 3, -0.5994, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 size = Vector3(15, 0.001, 17)
 material = SubResource("StandardMaterial3D_ftau0")
 
@@ -48,16 +42,3 @@ material = SubResource("StandardMaterial3D_6cowp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 8.5)
 size = Vector3(15, 0.5, 0.001)
 material = SubResource("StandardMaterial3D_6cowp")
-
-[node name="Mid" type="CSGPolygon3D" parent="Map/Ground"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-polygon = PackedVector2Array(0, 0, 0, 1, 2, 1, 5, 0)
-mode = 1
-spin_degrees = 360.0
-spin_sides = 8
-material = SubResource("StandardMaterial3D_u2kh0")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Map/Ground/Mid"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-operation = 2
-material = SubResource("StandardMaterial3D_u2kh0")

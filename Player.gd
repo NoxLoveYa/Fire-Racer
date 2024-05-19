@@ -53,12 +53,13 @@ func steer_car():
 	transform.basis = transform.basis.rotated(steer_axis, steer_angle)
 
 func _physics_process(delta):
-	if is_multiplayer_authority():
-		if is_on_floor():
-			get_input()
-			steer_car()
-			apply_friction(delta)
-		else:
-			velocity.y += gravity * delta
-		velocity += acceleration * delta
-		move_and_slide()
+	if not is_multiplayer_authority() or $"../".state == "freeze":
+		return
+	if is_on_floor():
+		get_input()
+		steer_car()
+		apply_friction(delta)
+	else:
+		velocity.y += gravity * delta
+	velocity += acceleration * delta
+	move_and_slide()
