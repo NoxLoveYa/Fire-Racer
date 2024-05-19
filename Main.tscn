@@ -45,12 +45,24 @@ properties/3/replication_mode = 1
 
 [node name="SceneRoot" type="Node3D"]
 script = ExtResource("1_v47ww")
-freeze_delay = 5.0
+game_duration = 0.1
 player_scene = ExtResource("2_mx080")
 fire_scene = ExtResource("3_xi78q")
 
 [node name="Map" parent="." instance=ExtResource("1_rbais")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="SpawnTopLeft" type="Node3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, -14.5)
+
+[node name="SpawnTopRigt" type="Node3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.25, -14.5)
+
+[node name="SpawnBottomRight" type="Node3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.25, -10)
+
+[node name="SpawnBottomLeft" type="Node3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, -10)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_b4kol")
@@ -92,6 +104,7 @@ spawn_path = NodePath("..")
 replication_config = SubResource("SceneReplicationConfig_eb0mr")
 
 [node name="Fire" parent="." instance=ExtResource("3_xi78q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -803, 0)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

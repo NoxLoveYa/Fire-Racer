@@ -101,7 +101,7 @@ turbulence_influence_max = 0.3
 
 [sub_resource type="QuadMesh" id="QuadMesh_347xb"]
 
-[node name="SceneRoot" type="Node3D"]
+[node name="SceneRoot2" type="Node3D"]
 
 [node name="World" type="Node" parent="."]
 

@@ -18,7 +18,6 @@ var steer_axis = Vector3(0, 1, 0)
 # Multiplayer
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
-	position += Vector3(0, 2, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
