@@ -3,10 +3,11 @@ extends Node3D
 ## Time before round starts
 @export var freeze_delay: float = 10.0
 ## Round duration in mins
-@export var game_duration: float = 2.5
+@export var game_duration: float = .1
 ## Immunity time (player doesn't gain points)
 @export var immunity_time: float = 4.5
 @export var state: String = "freeze"
+@export var next_game_time: float = 10.0
 
 @export var player_scene: PackedScene
 @export var fire_scene: PackedScene
@@ -19,10 +20,34 @@ extends Node3D
 @onready var fire_instance: Node3D = $Fire
 @onready var fire_player: Node3D = null
 var started = false
+@export var time_left: int = 0
+
+@onready var timer_hud = $Hud/TimerDisplay
+
+@onready var points_cooldown = $PointsCooldown
+
+@export var points: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+
+@rpc("any_peer", "call_local")
+func update_time(state, time_left):
+	if state == "freeze":
+		timer_hud.text = "[center] Game starting in: " + str(time_left)
+	elif state == "imun":
+		timer_hud.text = "[center] Starting to count point in: " + str(time_left)
+	elif state == "game":
+		timer_hud.text = "[center] End of the game in: " + str(time_left)
+	elif state == "disp_winner":
+		timer_hud.text = "[center] Next game in: " + str(time_left)
+
+
+func _on_points_cooldown_timeout():
+	points[fire_player_name] += 1
+	print("cds : ", points)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -31,9 +56,28 @@ func _process(_delta):
 	if (not fire_player):
 		fire_player = $"1"
 	fire_instance.position = fire_player.position + Vector3(0, 1, 0)
+	if timer_hud.visible:
+		time_left = timer.time_left
+		rpc("update_time", state, time_left)
+	if state == "game" and points_cooldown.is_stopped():
+		points_cooldown.start()
 
 # Multiplayer
 var peer = ENetMultiplayerPeer.new()
+
+func get_max_from_dict(dict: Dictionary):
+	var max_val = 0
+
+	for key in dict:
+		if dict[key] > max_val:
+			max_val = dict[key]
+	return max_val
+
+func get_winner():
+	var max_val = get_max_from_dict(points)
+	for key in points:
+		if points[key] == max_val:
+			return key
 
 @rpc("any_peer", "call_local")
 func _change_state():
@@ -41,14 +85,29 @@ func _change_state():
 		if multiplayer.is_server():
 			fire_player = players.pick_random()
 			fire_player_name = fire_player.name
+			timer.wait_time = immunity_time
+			timer.start()
 		state = "imun"
 	elif state == "imun":
+		for key in points:
+			points[key] = 0
+		if multiplayer.is_server():
+			timer.wait_time = game_duration * 60
+			timer.start()
 		state = "game"
 	elif state == "game":
+		if multiplayer.is_server():
+			timer.wait_time = next_game_time
+			timer.start()
+		$Hud/Winners.text = "[center] Winner is: " + get_winner()
+		$Hud/Winners.visible = true
 		state = "disp_winner"
 	else:
 		state = "freeze"
-	print(state)
+		$Hud/Winners.visible = false		
+		if multiplayer.is_server():
+			timer.wait_time = freeze_delay
+			timer.start()
 	
 func _on_timer_timeout():
 	rpc("_change_state")
@@ -75,6 +134,7 @@ func add_player(id = 1):
 	player.name = str(id)
 	call_deferred("add_child", player)
 	players.append(player)
+	points[player.name] = 0
 
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
