@@ -7,29 +7,24 @@
 size = Vector3(0.976929, 0.603867, 1.31122)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7c5gk"]
-properties/0/path = NodePath("Player:position")
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("Player:rotation")
+properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("Player/Camera3D:current")
-properties/2/spawn = true
-properties/2/replication_mode = 1
 
-[node name="SceneRoot" type="Node3D"]
-
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_joyq2")
 
-[node name="Kart" parent="Player" instance=ExtResource("1_ulc6r")]
+[node name="Kart" parent="." instance=ExtResource("1_ulc6r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.036, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 3.19744e-14, -8.74228e-08, -2.9398e-08, 0.941764, 0.336274, 8.23317e-08, 0.336274, -0.941764, -0.015, 0.959, -1.382)
 fov = 68.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0441284, 0.202976, 0.0767886)
 shape = SubResource("BoxShape3D_eq4ky")
 

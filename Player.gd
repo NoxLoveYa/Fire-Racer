@@ -17,13 +17,12 @@ var steer_axis = Vector3(0, 1, 0)
 
 # Multiplayer
 func _enter_tree():
-	print("name: ", name)
 	set_multiplayer_authority(name.to_int())
+	position += Vector3(0, 2, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	cam.current = is_multiplayer_authority()
-	print(name)
 	pass # Replace with function body.
 
 func apply_friction(delta):
@@ -54,13 +53,12 @@ func steer_car():
 	transform.basis = transform.basis.rotated(steer_axis, steer_angle)
 
 func _physics_process(delta):
-	if is_multiplayer_authority() != true:
-		pass
-	if is_on_floor():
-		get_input()
-		steer_car()
-		apply_friction(delta)
-	else:
-		velocity.y += gravity * delta
-	velocity += acceleration * delta
-	move_and_slide()
+	if is_multiplayer_authority():
+		if is_on_floor():
+			get_input()
+			steer_car()
+			apply_friction(delta)
+		else:
+			velocity.y += gravity * delta
+		velocity += acceleration * delta
+		move_and_slide()
