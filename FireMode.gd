@@ -149,6 +149,7 @@ func _set_position(player, pos):
 	if get_node(NodePath(player)) == null:
 		await get_tree().node_added
 	get_node(NodePath(player)).position = pos
+	get_node(NodePath(player)).rotation = Vector3(0, 0, 0)
 
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
