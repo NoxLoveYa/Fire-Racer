@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7sfh84763lft"]
+[gd_scene load_steps=10 format=3 uid="uid://b7sfh84763lft"]
 
 [ext_resource type="PackedScene" uid="uid://nppokluwj2ab" path="res://Map.tscn" id="1_rbais"]
 [ext_resource type="Script" path="res://FireMode.gd" id="1_v47ww"]
 [ext_resource type="PackedScene" uid="uid://u5j56ayx4nfm" path="res://Player.tscn" id="2_mx080"]
 [ext_resource type="PackedScene" uid="uid://ma5smjsys78k" path="res://Fire.tscn" id="3_xi78q"]
+[ext_resource type="Script" path="res://Hud.gd" id="5_uhnh7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fc1av"]
 sky_top_color = Color(0, 0.229167, 0.55, 1)
@@ -28,8 +29,20 @@ glow_hdr_threshold = 0.5
 glow_hdr_scale = 1.5
 adjustment_saturation = 8.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eb0mr"]
+properties/0/path = NodePath("Fire:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:state")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:fire_player_name")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="SceneRoot" type="Node3D"]
 script = ExtResource("1_v47ww")
+freeze_delay = 5.0
 player_scene = ExtResource("2_mx080")
 fire_scene = ExtResource("3_xi78q")
 
@@ -72,5 +85,24 @@ text = "127.0.0.1"
 _spawnable_scenes = PackedStringArray("res://Player.tscn", "res://Fire.tscn")
 spawn_path = NodePath("..")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_eb0mr")
+
+[node name="Fire" parent="." instance=ExtResource("3_xi78q")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Hud" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("5_uhnh7")
+
+[node name="FirePlayer" type="RichTextLabel" parent="Hud"]
+offset_right = 1150.0
+offset_bottom = 40.0
+text = "Fire Player: "
+fit_content = true
+
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

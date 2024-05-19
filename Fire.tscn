@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ma5smjsys78k"]
+[gd_scene load_steps=21 format=3 uid="uid://ma5smjsys78k"]
 
 [ext_resource type="Shader" uid="uid://pp07s3k227e7" path="res://Fire.tres" id="1_x35v2"]
 [ext_resource type="Texture2D" uid="uid://b3b3aff5failh" path="res://assets/Flame01.png" id="2_jf2tj"]
@@ -101,23 +101,6 @@ turbulence_influence_max = 0.3
 
 [sub_resource type="QuadMesh" id="QuadMesh_347xb"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_as3a7"]
-properties/0/path = NodePath("Fire:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("Fire/StaticFlame:position")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("Fire/Flames:position")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("Fire/Smoke:position")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("Fire/ParticulesFloating:position")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-
 [node name="SceneRoot" type="Node3D"]
 
 [node name="World" type="Node" parent="."]
@@ -165,6 +148,3 @@ amount = 50
 lifetime = 2.0
 process_material = SubResource("ParticleProcessMaterial_jo10f")
 draw_pass_1 = SubResource("QuadMesh_347xb")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_as3a7")
