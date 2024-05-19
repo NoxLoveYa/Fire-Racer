@@ -53,7 +53,10 @@ func _process(_delta):
 		return
 	if (not fire_player):
 		fire_player = $"1"
-	fire_instance.position = fire_player.position + Vector3(0, 1, 0)
+	if (fire_player.name != fire_player_name):
+		rpc("_change_fire_player")
+	if fire_player:
+		fire_instance.position = fire_player.position + Vector3(0, 1, 0)
 	if timer_hud.visible:
 		time_left = timer.time_left
 		rpc("update_time", state, time_left)
@@ -83,25 +86,17 @@ func get_winner():
 		if points[key] == max_val:
 			return key
 
-func change_fire_car(body: Node3D):
-	if state != "game":
-		return
-	if body.is_in_group("players"):
-		if fire_player.get_node(NodePath("Area3D")).get_signal_connection_list("body_entered").size() > 0:
-			fire_player.get_node(NodePath("Area3D")).disconnect("body_entered", change_fire_car)
-		fire_player = body
-		fire_player_name = fire_player.name
-		print("collided", fire_player)
+@rpc("any_peer", "call_local")
+func _change_fire_player():
+	if (has_node(NodePath(fire_player_name))):
+		fire_player = get_node(NodePath(fire_player_name))
+
 @rpc("any_peer", "call_local")
 func _change_state():
 	if state == "freeze":
 		if multiplayer.is_server():
-			if fire_player:
-				if fire_player.get_node(NodePath("Area3D")).get_signal_connection_list("body_entered").size() > 0:
-					fire_player.get_node(NodePath("Area3D")).disconnect("body_entered", change_fire_car)
 			fire_player = players.pick_random()
 			fire_player_name = fire_player.name
-			fire_player.get_node(NodePath("Area3D")).connect("body_entered", change_fire_car)
 			timer.wait_time = immunity_time
 			timer.start()
 		state = "imun"
