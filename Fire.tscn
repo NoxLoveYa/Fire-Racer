@@ -42,7 +42,7 @@ shader_parameter/MainTexture = ExtResource("4_pe56m")
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.080292, 0.484281), 6.15269, 6.15269, 0, 0, Vector2(0.20438, 1), 0.0, 0.0, 0, 0, Vector2(0.729927, 0.338323), -1.51083, -1.51083, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 
-[sub_resource type="CurveTexture" id="CurveTexture_kkkwy"]
+[sub_resource type="CurveTexture" id="CurveTexture_3icjy"]
 curve = SubResource("Curve_f7mi8")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s23wk"]
@@ -55,7 +55,7 @@ damping_min = 0.5
 damping_max = 1.0
 scale_min = 0.35
 scale_max = 0.75
-scale_curve = SubResource("CurveTexture_kkkwy")
+scale_curve = SubResource("CurveTexture_3icjy")
 color = Color(4.01176, 1.2549, 0.623529, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_kd151"]
@@ -64,7 +64,7 @@ color = Color(4.01176, 1.2549, 0.623529, 1)
 offsets = PackedFloat32Array(0, 0.260163, 0.5, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.62069, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_pw04w"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yruat"]
 gradient = SubResource("Gradient_ecoe1")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l6uhc"]
@@ -77,9 +77,9 @@ damping_min = 0.5
 damping_max = 1.0
 scale_min = 0.75
 scale_max = 1.25
-scale_curve = SubResource("CurveTexture_kkkwy")
+scale_curve = SubResource("CurveTexture_3icjy")
 color = Color(0, 0, 0, 1)
-color_ramp = SubResource("GradientTexture1D_pw04w")
+color_ramp = SubResource("GradientTexture1D_yruat")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4u4nm"]
 render_priority = 0
