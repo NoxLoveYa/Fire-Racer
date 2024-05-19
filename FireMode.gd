@@ -18,7 +18,7 @@ extends Node3D
 @onready var timer: Timer = $Timer
 ## The player that holds the flame
 @onready var fire_instance: Node3D = $Fire
-@onready var fire_player: Node3D = null
+@onready var fire_player: CharacterBody3D = null
 var started = false
 @export var time_left: int = 0
 
@@ -46,7 +46,6 @@ func update_time(state, time_left):
 
 func _on_points_cooldown_timeout():
 	points[fire_player_name] += 1
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -84,12 +83,25 @@ func get_winner():
 		if points[key] == max_val:
 			return key
 
+func change_fire_car(body: Node3D):
+	if state != "game":
+		return
+	if body.is_in_group("players"):
+		if fire_player.get_node(NodePath("Area3D")).get_signal_connection_list("body_entered").size() > 0:
+			fire_player.get_node(NodePath("Area3D")).disconnect("body_entered", change_fire_car)
+		fire_player = body
+		fire_player_name = fire_player.name
+		print("collided", fire_player)
 @rpc("any_peer", "call_local")
 func _change_state():
 	if state == "freeze":
 		if multiplayer.is_server():
+			if fire_player:
+				if fire_player.get_node(NodePath("Area3D")).get_signal_connection_list("body_entered").size() > 0:
+					fire_player.get_node(NodePath("Area3D")).disconnect("body_entered", change_fire_car)
 			fire_player = players.pick_random()
 			fire_player_name = fire_player.name
+			fire_player.get_node(NodePath("Area3D")).connect("body_entered", change_fire_car)
 			timer.wait_time = immunity_time
 			timer.start()
 		state = "imun"
@@ -146,7 +158,7 @@ func add_player(id = 1):
 
 @rpc("any_peer", "call_local")
 func _set_position(player, pos):
-	if get_node(NodePath(player)) == null:
+	if !has_node(NodePath(player)):
 		await get_tree().node_added
 	get_node(NodePath(player)).position = pos
 	get_node(NodePath(player)).rotation = Vector3(0, 0, 0)

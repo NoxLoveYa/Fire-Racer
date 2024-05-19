@@ -45,7 +45,6 @@ properties/3/replication_mode = 1
 
 [node name="SceneRoot" type="Node3D"]
 script = ExtResource("1_v47ww")
-game_duration = 0.05
 player_scene = ExtResource("2_mx080")
 fire_scene = ExtResource("3_xi78q")
 
