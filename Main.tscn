@@ -21,7 +21,12 @@ background_color = Color(0, 0.741176, 0.956863, 1)
 sky = SubResource("Sky_s5yyp")
 ambient_light_color = Color(0.309804, 0.0901961, 0, 1)
 glow_enabled = true
+glow_intensity = 0.1
 glow_bloom = 0.2
+glow_blend_mode = 0
+glow_hdr_threshold = 0.5
+glow_hdr_scale = 1.5
+volumetric_fog_enabled = true
 adjustment_saturation = 8.0
 
 [node name="SceneRoot" type="Node3D"]
