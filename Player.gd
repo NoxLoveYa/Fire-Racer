@@ -69,4 +69,5 @@ func _on_area_3d_body_entered(body):
 		return
 	if body.name == name:
 		return
-	$"../".fire_player_name = name
+	if body.name == $"../".fire_player_name:
+		$"../".fire_player_name = name
